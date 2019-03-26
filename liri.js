@@ -10,6 +10,9 @@ var getArtistName = function(artist) {
 };
 //created a function that takes an argument of song name
 var getMySpotify = function(songName) {
+  if (songName === undefined) {
+    songName = "The Sign Ace of Base";
+  }
   spotify.search({ type: "track", query: songName }, function(err, data) {
     if (err) {
       return console.log("Error occurred: " + err);
@@ -28,15 +31,19 @@ var getMySpotify = function(songName) {
 };
 
 var getMyMovie = function(movieName) {
+  if (movieName === undefined) {
+    movieName = "Mr. Nobody";
+  }
   var queryUrl =
     "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
   // console.log(queryUrl);
+
   axios.get(queryUrl).then(function(response) {
     console.log(response);
     console.log("Title: " + response.data.Title);
     console.log("Year: " + response.data.Year);
     console.log("IMDB Rating: " + response.data.imdbRating);
-    console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1]);
+    console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
     console.log("Country: " + response.data.Country);
     console.log("Languauge: " + response.data.Language);
     console.log("Plot: " + response.data.Plot);
