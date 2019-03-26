@@ -1,6 +1,7 @@
 require("dotenv").config();
 var keys = require("./keys.js");
 var Spotify = require("node-spotify-api");
+var axios = require("axios");
 var spotify = new Spotify(keys.spotify);
 
 var getArtistName = function(artist) {
@@ -18,10 +19,19 @@ var getMySpotify = function(songName) {
       console.log(i);
       console.log("Artist: " + songs[i].artists.map(getArtistName));
       console.log("Song name: " + songs[i].name);
-      console.log("Preview: " + songs[i].preview_url);
+      console.log("Preview link : " + songs[i].preview_url);
       console.log("Album: " + songs[i].album.name);
-      console.log("---------------------------------");
+      console.log(" =============================== ");
     }
+  });
+};
+
+var getMyMovie = function(movieName) {
+  var queryUrl =
+    "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+  console.log(queryUrl);
+  axios.get(queryUrl).then(function(response) {
+    console.log(response);
   });
 };
 var pick = function(caseData, functionData) {
@@ -29,13 +39,16 @@ var pick = function(caseData, functionData) {
     case "spotify-this-song":
       getMySpotify(functionData);
       break;
+    case "movie-this":
+      getMyMovie(functionData);
+      break;
     default:
       console.log("DOES NOT KNOW");
   }
 };
 //function for user input
-var runThis = function(argOne, argTwo) {
+var run = function(argOne, argTwo) {
   pick(argOne, argTwo);
 };
 
-runThis(process.argv[2], process.argv[3]);
+run(process.argv[2], process.argv[3]);
