@@ -52,9 +52,19 @@ var getMyMovie = function(movieName) {
 };
 var getMyConcert = function(artist) {
   var queryURL =
-    "https://rest.bandsintown.com/artists/" + artist + "?app_id=codingbootcamp";
+    "https://rest.bandsintown.com/artists/" +
+    artist +
+    "/events?app_id=codingbootcamp";
   axios.get(queryURL).then(function(response) {
-    console.log(response);
+    var result = response.data;
+    for (var i = 0; i < result.length; i++) {
+      // console.log(result[i]);
+      console.log("Venue: " + result[i].venue.name);
+      console.log("Venue City: " + result[i].venue.city);
+      console.log("Venue Country: " + result[i].venue.country);
+      console.log("Event Date: " + result[i].datetime);
+      console.log(" =============================== ");
+    }
   });
 };
 var doWhatItSays = function() {
