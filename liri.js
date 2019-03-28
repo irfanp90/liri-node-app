@@ -40,7 +40,7 @@ var getMyMovie = function(movieName) {
   // console.log(queryUrl);
 
   axios.get(queryUrl).then(function(response) {
-    console.log(response);
+    // console.log(response);
     console.log("Title: " + response.data.Title);
     console.log("Year: " + response.data.Year);
     console.log("IMDB Rating: " + response.data.imdbRating);
@@ -51,6 +51,7 @@ var getMyMovie = function(movieName) {
     console.log("Actors: " + response.data.Actors);
   });
 };
+
 var getMyConcert = function(artist) {
   var queryURL =
     "https://rest.bandsintown.com/artists/" +
@@ -58,13 +59,13 @@ var getMyConcert = function(artist) {
     "/events?app_id=codingbootcamp";
   axios.get(queryURL).then(function(response) {
     var result = response.data;
-    for (var i = 0; i < result.length; i++) {
-      // console.log(result[i]);
+    for (var i = 0; i < 21; i++) {
+      console.log(i);
       console.log("Venue: " + result[i].venue.name);
       console.log("Venue City: " + result[i].venue.city);
       console.log("Venue Country: " + result[i].venue.country);
       console.log(
-        "Event Date: " + moment(result[i].datetime).format("MMMM Do YYYY")
+        "Event Date: " + moment(result[i].datetime).format("MM DD YYYY")
       );
       console.log(" =============================== ");
     }
@@ -97,9 +98,10 @@ var pick = function(caseData, functionData) {
       doWhatItSays();
       break;
     default:
-      console.log("DOES NOT KNOW");
+      console.log("TRY AGAIN");
   }
 };
+
 //function for user input
 var run = function(argOne, argTwo) {
   pick(argOne, argTwo);
